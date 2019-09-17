@@ -1,14 +1,7 @@
-os:
-  - linux
-
 language: php
-
 php:
-  - "7.1"
-
+  - 7.2
+  - 7.1
 before_script:
-  - composer self-update
-  - composer install --no-interaction
-
-script:
-  - vendor/bin/phpunit -c phpunit.xml
+  - composer install
+script: vendor/bin/phpunit -c phpunit.xml
