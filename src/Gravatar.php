@@ -16,14 +16,14 @@ class Gravatar
 	 *
 	 * @var string
 	 */
-	const PUBLIC_BASEURL = 'https://www.gravatar.com/avatar/';
+	private $publicBaseUrl = 'https://www.gravatar.com/avatar/';
 
 	/**
 	 * Gravatar secure base url
 	 *
 	 * @var string
 	 */
-	const SECURE_BASEURL = 'https://secure.gravatar.com/avatar/';
+	private $secureBaseUrl = 'https://secure.gravatar.com/avatar/';
 
 	/**
 	 * Email address to check
@@ -75,7 +75,7 @@ class Gravatar
 	{
 		$this->checkEmail($email);
 		$this->email = $email;
-	
+
 		$this->setConfig(['fallback' => 404]);
 
 		$headers = @get_headers($this->buildUrl());
@@ -163,7 +163,7 @@ class Gravatar
 	 */
 	private function buildUrl()
 	{
-		$url  = $this->c('secure') === true ? self::SECURE_BASEURL : self::PUBLIC_BASEURL;
+		$url  = $this->c('secure') === true ? $this->secureBaseUrl : $this->publicBaseUrl;
 		$url .= $this->hashEmail();
 		$url .= $this->getExtension();
 		$url .= $this->getUrlParameters();
