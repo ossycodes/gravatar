@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites>
+  <testsuite name="creativeorange-gravatar Test Suite" tests="6" assertions="7" errors="0" failures="0" skipped="0" time="0.043388">
+    <testsuite name="GravatarTest" file="C:\xampp\htdocs\LaravelPackages\gravatar\tests\GravatarTest.php" tests="6" assertions="7" errors="0" failures="0" skipped="0" time="0.043388">
+      <testcase name="throwsinvalidEmailExceptionIfEmailIsInvalid" class="GravatarTest" classname="GravatarTest" file="C:\xampp\htdocs\LaravelPackages\gravatar\tests\GravatarTest.php" line="17" assertions="2" time="0.012688"/>
+      <testcase name="returnValidHashForEmail" class="GravatarTest" classname="GravatarTest" file="C:\xampp\htdocs\LaravelPackages\gravatar\tests\GravatarTest.php" line="25" assertions="1" time="0.000793"/>
+      <testcase name="assertPublicBaseUrlIsCorrect" class="GravatarTest" classname="GravatarTest" file="C:\xampp\htdocs\LaravelPackages\gravatar\tests\GravatarTest.php" line="32" assertions="1" time="0.000180"/>
+      <testcase name="assertSecureBaseUrlIsCorrect" class="GravatarTest" classname="GravatarTest" file="C:\xampp\htdocs\LaravelPackages\gravatar\tests\GravatarTest.php" line="38" assertions="1" time="0.000141"/>
+      <testcase name="assertThatCorrectGravatarImageLinkIsReturn" class="GravatarTest" classname="GravatarTest" file="C:\xampp\htdocs\LaravelPackages\gravatar\tests\GravatarTest.php" line="50" assertions="1" time="0.028559"/>
+      <testcase name="assertThatEmailExistsOnGravatar" class="GravatarTest" classname="GravatarTest" file="C:\xampp\htdocs\LaravelPackages\gravatar\tests\GravatarTest.php" line="61" assertions="1" time="0.001027"/>
+    </testsuite>
+  </testsuite>
+</testsuites>

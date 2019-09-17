@@ -16,32 +16,27 @@ class Gravatar
 	 *
 	 * @var string
 	 */
-	private $publicBaseUrl = 'https://www.gravatar.com/avatar/';
-
+	const PUBLIC_BASEURL = 'https://www.gravatar.com/avatar/';
 	/**
 	 * Gravatar secure base url
 	 *
 	 * @var string
 	 */
-	private $secureBaseUrl = 'https://secure.gravatar.com/avatar/';
-
+	const SECURE_BASEURL = 'https://secure.gravatar.com/avatar/';
 	/**
 	 * Email address to check
 	 *
 	 * @var string
 	 */
 	private $email;
-
 	/**
 	 * @var array
 	 */
 	private $config;
-
 	/**
 	 * @var string
 	 */
 	private $fallback;
-
 	/**
 	 * Override the default image fallback set in the config.
 	 * Can either be a public URL to an image or a valid themed image.
@@ -60,10 +55,8 @@ class Gravatar
 		} else {
 			$this->fallback = false;
 		}
-
 		return $this;
 	}
-
 	/**
 	 * Check if Gravatar has an avatar for the given email address
 	 *
@@ -75,14 +68,10 @@ class Gravatar
 	{
 		$this->checkEmail($email);
 		$this->email = $email;
-
 		$this->setConfig(['fallback' => 404]);
-
 		$headers = @get_headers($this->buildUrl());
-
 		return (bool) strpos($headers[0], '200');
 	}
-
 	/**
 	 * Get the gravatar url
 	 *
@@ -94,13 +83,10 @@ class Gravatar
 	public function get($email, $configGroup = 'default')
 	{
 		$this->checkEmail($email);
-
 		$this->setConfig($configGroup);
 		$this->email = $email;
-
 		return $this->buildUrl();
 	}
-
 	/**
 	 * Helper function for setting the config based on either:
 	 * 1. The name of a config group
@@ -122,10 +108,8 @@ class Gravatar
 		} else {
 			$this->config = Arr::dot(config('gravatar.default'));
 		}
-
 		return $this;
 	}
-
 	/**
 	 * Helper function to retrieve config settings.
 	 *
@@ -137,7 +121,6 @@ class Gravatar
 	{
 		return array_key_exists($value, $this->config) ? $this->config[$value] : $default;
 	}
-
 	/**
 	 * Helper function to md5 hash the email address
 	 *
@@ -147,50 +130,41 @@ class Gravatar
 	{
 		return md5(strtolower(trim($this->email)));
 	}
-
 	/**
 	 * @return string
 	 */
 	private function getExtension()
 	{
 		$v = $this->c('forceExtension');
-
 		return $v ? '.' . $v : '';
 	}
-
 	/**
 	 * @return string
 	 */
 	private function buildUrl()
 	{
-		$url  = $this->c('secure') === true ? $this->secureBaseUrl : $this->publicBaseUrl;
+		$url  = $this->c('secure') === true ? self::SECURE_BASEURL : self::PUBLIC_BASEURL;
 		$url .= $this->hashEmail();
 		$url .= $this->getExtension();
 		$url .= $this->getUrlParameters();
-
 		return $url;
 	}
-
 	/**
 	 * @return string
 	 */
 	private function getUrlParameters()
 	{
 		$build = array();
-
 		foreach (get_class_methods($this) as $method) {
 			if (substr($method, -strlen('Parameter')) !== 'Parameter') {
 				continue;
 			}
-
 			if ($called = call_user_func(array($this, $method))) {
 				$build = array_replace($build, $called);
 			}
 		}
-
 		return '?' . http_build_query($build);
 	}
-
 	/**
 	 * @return array|null
 	 */
@@ -202,41 +176,33 @@ class Gravatar
 		) {
 			return null;
 		}
-
 		return array('s' => $this->c('size'));
 	}
-
 	/**
 	 * @return array|null
 	 */
 	private function defaultParameter()
 	{
 		$this->fallback = $this->c('fallback');
-
 		if (!$this->fallback) {
 			return null;
 		}
-
 		return array('d' => $this->fallback);
 	}
-
 	/**
 	 * @return array|null
 	 */
 	private function ratingParameter()
 	{
 		$rating = $this->c('maximumRating');
-
 		if (
 			!$rating
 			|| !in_array($rating, array('g', 'pg', 'r', 'x'))
 		) {
 			return null;
 		}
-
 		return array('r' => $rating);
 	}
-
 	/**
 	 * @return array|null
 	 */
@@ -245,10 +211,8 @@ class Gravatar
 		if ($this->c('forceDefault') === true) {
 			return array('forcedefault' => 'y');
 		}
-
 		return null;
 	}
-
 	/**
 	 * Check if the provided email address is valid
 	 *
