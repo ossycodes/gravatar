@@ -127,3 +127,6 @@ Alternatively, you could also pass an array directly as the second parameter as 
 Gravatar::get('email@example.com', ['size'=>200]); 
 ```
 
+## Configuration
+To run the tests you can run the `vendor/bin/phpunit` command
+
